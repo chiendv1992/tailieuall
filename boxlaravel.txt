@@ -1,0 +1,84 @@
+box laravel (https://laravel.com/docs/5.8)
+- cai dat vitualhost
+- cai dat vagrant
+
+-Installing The Homestead Vagrant Box
+	vagrant box add laravel/homestead (cai dat box laravel chon vitualhost)
+	
+- Installing Homestead
+	git clone https://github.com/laravel/homestead.git ~/Homestead
+	cd ~/Homestead
+	
+	// Mac / Linux...
+	bash init.sh
+
+	// Windows...
+	init.bat
+
+- Configuring Shared Folders
+	provider: virtualbox
+	
+	folders:
+		- map: ~/code (chua code cua project)
+		  to: /home/vagrant/code (thu muc dong bo voi code project)
+		  
+		  
+		- map: ~/code/project1
+		  to: /home/vagrant/code/project1
+
+		- map: ~/code/project2
+		  to: /home/vagrant/code/project2
+
+
+	Để bật NFS , bạn chỉ cần thêm một cờ đơn giản vào cấu hình thư mục được đồng bộ hóa của mình:
+
+	folders:
+		- map: ~/code
+		  to: /home/vagrant/code
+		  type: "nfs"
+		  
+	Bạn cũng có thể vượt qua bất kỳ tùy chọn nào được hỗ trợ bởi Thư mục được đồng bộ hóa của Vagrant bằng cách liệt kê chúng dưới options :
+
+	folders:
+		- map: ~/code
+		  to: /home/vagrant/code
+		  type: "rsync"
+		  
+		  options:
+			  rsync__args: ["--verbose", "--archive", "--delete", "-zz"]
+			  rsync__exclude: ["node_modules"]
+			  
+- Định cấu hình trang web Nginx
+
+	sites:
+    - map: homestead.test (ten mien dat trong file host)
+      to: /home/vagrant/code/my-project/public (thu muc chua file index)
+- mo file host trong windows 
+	192.168.10.10  homestead.test
+
+- chay
+	vagrant up (thu muc chua file Homestead.yaml)
+	vagrant destroy --force de huy
+	vagrant healt ( tat may)
+	vagrant ssh (de vao ssh)
+	
+- cai dat cho moi du an 
+	composer require laravel/homestead --dev
+	Khi Homestead đã được cài đặt, hãy sử dụng makelệnh để tạo Vagrantfilevà tệp trong thư mục gốc của dự án. Các lệnh sẽ tự động cấu hình và chỉ thị trong tập tin.Homestead.yamlmakesitesfoldersHomestead.yaml
+	Mac / Linux:
+	php vendor/bin/homestead make
+	
+	window:
+	vendor\\bin\\homestead make
+	
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
